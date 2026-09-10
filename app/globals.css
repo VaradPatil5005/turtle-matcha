@@ -1,26 +1,58 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #000000;
+  --paper: #FFFFFF;
+  --paper-2: #F4F4F2;
+  --mid: #6B6B6B;
+  --soft: #E4E4E1;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --font-anton: var(--font-anton), "Anton", sans-serif;
+  --font-inter: var(--font-inter), "Inter", sans-serif;
+  --color-ink: #000000;
+  --color-paper: #FFFFFF;
+  --color-paper-2: #F4F4F2;
+  --color-mid: #6B6B6B;
+  --color-soft: #E4E4E1;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-inter), "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: var(--font-anton), "Anton", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.font-body {
+  font-family: var(--font-inter), "Inter", sans-serif;
+}
+
+/* Hairline border utilities */
+.border-hairline {
+  border-color: var(--soft);
+}
+
+.border-ink-hairline {
+  border-color: #000000;
+}
+
+/* Strict black and white only - links inherit color unless overridden */
+a {
+  color: inherit;
 }
