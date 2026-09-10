@@ -13,19 +13,11 @@ export interface Drink {
 
 export const DRINKS: Drink[] = [
   {
-    name: "Classic Whisk Matcha",
+    name: "Strawberry Matcha",
     blurb:
-      "Ceremonial matcha, hand-whisked with a bamboo chasen and poured over ice — no shortcuts, no syrup.",
-    image: "/images/hero/classic-whisk-matcha.png",
-    bg: "#FFFFFF",
-    textColor: "#000000",
-  },
-  {
-    name: "Honey Rosemary Matcha",
-    blurb:
-      "Stone-ground matcha layered with honey and a whisper of rosemary, finished with fresh fruit.",
-    image: "/images/hero/honey-rosemary-matcha.png",
-    bg: "#AC5522",
+      "Layered strawberry and ceremonial matcha, poured slow over ice.",
+    image: "/images/hero/strawberry-matcha.png",
+    bg: "#CD485E",
     textColor: "#FFFFFF",
   },
   {
@@ -37,6 +29,14 @@ export const DRINKS: Drink[] = [
     textColor: "#FFFFFF",
   },
   {
+    name: "Honey Rosemary Matcha",
+    blurb:
+      "Stone-ground matcha layered with honey and a whisper of rosemary, finished with fresh fruit.",
+    image: "/images/hero/honey-rosemary-matcha.png",
+    bg: "#AC5522",
+    textColor: "#FFFFFF",
+  },
+  {
     name: "Matcha Martini",
     blurb:
       "Our matcha, shaken smooth and served up — the after-dark side of the menu.",
@@ -45,12 +45,12 @@ export const DRINKS: Drink[] = [
     textColor: "#FFFFFF",
   },
   {
-    name: "Strawberry Matcha",
+    name: "Classic Whisk Matcha",
     blurb:
-      "Layered strawberry and ceremonial matcha, poured slow over ice.",
-    image: "/images/hero/strawberry-matcha.png",
-    bg: "#CD485E",
-    textColor: "#FFFFFF",
+      "Ceremonial matcha, hand-whisked with a bamboo chasen and poured over ice — no shortcuts, no syrup.",
+    image: "/images/hero/classic-whisk-matcha.png",
+    bg: "#FFFFFF",
+    textColor: "#000000",
   },
 ];
 
