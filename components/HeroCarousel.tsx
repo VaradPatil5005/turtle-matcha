@@ -1,7 +1,41 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useSyncExternalStore,
+} from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+
+function subscribeReducedMotion(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
+  const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+  mql.addEventListener("change", callback);
+  return () => mql.removeEventListener("change", callback);
+}
+
+function getReducedMotionSnapshot() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function getReducedMotionServerSnapshot() {
+  return false;
+}
+
+function subscribeMobile(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
+  window.addEventListener("resize", callback);
+  return () => window.removeEventListener("resize", callback);
+}
+
+function getMobileSnapshot() {
+  return window.innerWidth < 640;
+}
+
+function getMobileServerSnapshot() {
+  return false;
+}
 
 export interface Drink {
   name: string;
@@ -61,18 +95,18 @@ interface HeroCarouselProps {
 export default function HeroCarousel({ onActiveDrinkChange }: HeroCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
 
-  // Check prefers-reduced-motion
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(mql.matches);
-    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mql.addEventListener("change", handler);
-    return () => mql.removeEventListener("change", handler);
-  }, []);
+  const reducedMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotionSnapshot,
+    getReducedMotionServerSnapshot
+  );
+
+  const isMobile = useSyncExternalStore(
+    subscribeMobile,
+    getMobileSnapshot,
+    getMobileServerSnapshot
+  );
 
   // Preload all 5 transparent hero drink images
   useEffect(() => {
@@ -80,16 +114,6 @@ export default function HeroCarousel({ onActiveDrinkChange }: HeroCarouselProps)
       const img = new Image();
       img.src = drink.image;
     });
-  }, []);
-
-  // Handle window resizing
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 640);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Notify parent of active drink change
